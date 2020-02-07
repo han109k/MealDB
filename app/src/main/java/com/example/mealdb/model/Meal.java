@@ -158,14 +158,14 @@ public class Meal implements Parcelable {
 
         for(Field field : mealClass.getDeclaredFields()){
             int modifiers = field.getModifiers();
-            if(Modifier.isProtected(modifiers) && i != 20) {
+            if(Modifier.isProtected(modifiers) && (i != 20)) {
                 try {
                     i++;
                     ingredientList.add(field.get(this));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-            } else if(Modifier.isProtected(modifiers) && i > 20) {
+            } else if(Modifier.isProtected(modifiers) && (i > 19)) {
                 try {
                     measureList.add(field.get(this));
                 } catch (IllegalAccessException e) {
