@@ -153,6 +153,7 @@ public class Meal implements Parcelable {
 
     private void addAll() {
         ingredientList = new ArrayList<>();
+        measureList = new ArrayList<>();
         Class<?> mealClass = getClass();
         int i = 0;
 
@@ -245,6 +246,14 @@ public class Meal implements Parcelable {
 
     public void setMeasureList(ArrayList<Object> measureList) {
         this.measureList = measureList;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "idMeal='" + idMeal + '\'' +
+                ", strMeal='" + strMeal + '\'' +
+                '}';
     }
 
     @Override
