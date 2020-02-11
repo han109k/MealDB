@@ -1,6 +1,8 @@
 package com.example.mealdb;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
 import com.example.mealdb.requests.ServiceGenerator;
 import com.example.mealdb.requests.responses.MealSearchResponse;
+import com.example.mealdb.viewmodels.MealListViewModel;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -24,6 +27,8 @@ import retrofit2.Response;
 public class MealListActivity extends BaseActivity {
 
     private static final String TAG = "MealListActivity";
+
+    private MealListViewModel mMealListViewModel;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,27 @@ public class MealListActivity extends BaseActivity {
         setContentView(R.layout.activity_meal_list);
         Log.d(TAG, "onCreate: called");
 
-        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
+        // init view model
+        mMealListViewModel = new ViewModelProvider(this).get(MealListViewModel.class);
+
+        subscribeObservers();
+
+//        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                testRetrofitRequest();
+//            }
+//        });
+        
+    }
+
+    private void subscribeObservers() {
+        mMealListViewModel.getMeals().observe(this, new Observer<List<Meal>>() {
             @Override
-            public void onClick(View v) {
-                testRetrofitRequest();
+            public void onChanged(List<Meal> meals) {
+
             }
         });
-        
     }
 
     private void testRetrofitRequest() {
