@@ -12,6 +12,8 @@ import com.example.mealdb.requests.ServiceGenerator;
 import com.example.mealdb.requests.responses.MealSearchResponse;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +53,21 @@ public class MealListActivity extends BaseActivity {
                 if(response.code() == 200) {
                     Log.d(TAG, "onResponse: " + response.body().toString());
                     List<Meal> meals = new ArrayList<>(response.body().getMeals());
+
                     for(Meal meal : meals) {
                         Log.d(TAG, "onResponse: " + meal.getStrMeal());
+
+                        for(Field field : meal.getClass().getDeclaredFields()) {
+                            int modifiers = field.getModifiers();
+                            field.setAccessible(true);
+                            if(Modifier.isProtected(modifiers)){
+                                try {
+                                    Log.d(TAG, "Ingredient: " + field.get(meal));
+                                } catch (IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 } else {
                     try {

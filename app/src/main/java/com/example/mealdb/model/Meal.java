@@ -86,7 +86,6 @@ public class Meal implements Parcelable {
         this.srtMeasure18 = srtMeasure18;
         this.srtMeasure19 = srtMeasure19;
         this.srtMeasure20 = srtMeasure20;
-        addAll();
     }
 
     protected Meal(Parcel in) {
@@ -151,31 +150,6 @@ public class Meal implements Parcelable {
         }
     };
 
-    private void addAll() {
-        ingredientList = new ArrayList<>();
-        measureList = new ArrayList<>();
-        Class<?> mealClass = getClass();
-        int i = 0;
-
-        for(Field field : mealClass.getDeclaredFields()){
-            int modifiers = field.getModifiers();
-            if(Modifier.isProtected(modifiers) && (i != 20)) {
-                try {
-                    i++;
-                    ingredientList.add(field.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } else if(Modifier.isProtected(modifiers) && (i > 19)) {
-                try {
-                    measureList.add(field.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     public String getIdMeal() {
         return idMeal;
     }
@@ -232,27 +206,47 @@ public class Meal implements Parcelable {
         this.strYoutube = strYoutube;
     }
 
-    public ArrayList<Object> getIngredientList() {
-        return ingredientList;
+    public void setAll() {
+        ingredientList = new ArrayList<>();
+        measureList = new ArrayList<>();
+        Class<?> mealClass = getClass();
+        int i = 0;
+
+        for(Field field : mealClass.getDeclaredFields()){
+            field.setAccessible(true);
+            int modifiers = field.getModifiers();
+            if(Modifier.isProtected(modifiers) && (i < 20)) {
+                try {
+                    i++;
+                    ingredientList.add(field.get(this));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            } else if(Modifier.isProtected(modifiers) && (i > 19)) {
+                try {
+                    i++;
+                    measureList.add(field.get(this));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    public void setIngredientList(ArrayList<Object> ingredientList) {
-        this.ingredientList = ingredientList;
+    public ArrayList<Object> getIngredientList() {
+        return ingredientList;
     }
 
     public ArrayList<Object> getMeasureList() {
         return measureList;
     }
 
-    public void setMeasureList(ArrayList<Object> measureList) {
-        this.measureList = measureList;
-    }
-
     @Override
     public String toString() {
-        return "Meal{" +
+        return "Meal {" +
                 "idMeal='" + idMeal + '\'' +
                 ", strMeal='" + strMeal + '\'' +
+                ", strIngredient1='" + strIngredient1 + '\'' +
                 '}';
     }
 
