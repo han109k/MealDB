@@ -5,17 +5,19 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mealdb.model.Meal;
+import com.example.mealdb.repositories.MealRepository;
 
 import java.util.List;
 
 public class MealListViewModel extends ViewModel {
 
-    private MutableLiveData<List<Meal>> mMeals = new MutableLiveData<>();
+    private MealRepository mMealRepository;
 
     public MealListViewModel() {
+        mMealRepository = MealRepository.getInstance();
     }
 
     public LiveData<List<Meal>> getMeals() {
-        return mMeals;
+        return mMealRepository.getMeals();
     }
 }

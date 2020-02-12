@@ -1,12 +1,10 @@
 package com.example.mealdb;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
