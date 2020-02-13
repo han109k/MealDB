@@ -20,4 +20,8 @@ public class MealListViewModel extends ViewModel {
     public LiveData<List<Meal>> getMeals() {
         return mMealRepository.getMeals();
     }
+
+    public void searchMealsApi(String query) {
+        mMealRepository.searchMealsApi(query);
+    }
 }

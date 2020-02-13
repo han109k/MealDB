@@ -4,14 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mealdb.model.Meal;
+import com.example.mealdb.requests.MealApiClient;
 
 import java.util.List;
 
 public class MealRepository {
 
-    private MutableLiveData<List<Meal>> mMeals;
-
     private static MealRepository instance;
+    private MealApiClient mMealApiClient;
+
 
     public static MealRepository getInstance() {
         if(instance == null) {
@@ -21,10 +22,14 @@ public class MealRepository {
     }
 
     private MealRepository() {
-        mMeals = new MutableLiveData<>();
+        mMealApiClient = MealApiClient.getInstance();
     }
 
     public LiveData<List<Meal>> getMeals() {
-        return mMeals;
+        return mMealApiClient.getMeals();
+    }
+
+    public void searchMealsApi(String query) {
+        mMealApiClient.searchMealsApi(query);
     }
 }

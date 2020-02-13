@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
@@ -39,12 +40,13 @@ public class MealListActivity extends BaseActivity {
 
         subscribeObservers();
 
-//        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                testRetrofitRequest();
-//            }
-//        });
+        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //testRetrofitRequest();
+                searchMealsApi("chicken");
+            }
+        });
         
     }
 
@@ -52,9 +54,17 @@ public class MealListActivity extends BaseActivity {
         mMealListViewModel.getMeals().observe(this, new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meals) {
-
+                for(Meal meal : meals) {
+                    if(meal != null){
+                        Log.d(TAG, "onChanged: " + meal.getStrMeal());
+                    }
+                }
             }
         });
+    }
+
+    public void searchMealsApi(String query) {
+        mMealListViewModel.searchMealsApi(query);
     }
 
     private void testRetrofitRequest() {
