@@ -1,5 +1,6 @@
 package com.example.mealdb;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,7 +49,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
 
         initRecyclerView();
         subscribeObservers();
-        searchMealsApi("chicken");
+        initSearchView();
 
     }
 
@@ -70,6 +71,22 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         mAdapter = new MealRecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void initSearchView() {
+        final SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mMealListViewModel.searchMealsApi(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     public void searchMealsApi(String query) {
