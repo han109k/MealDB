@@ -2,11 +2,15 @@ package com.example.mealdb;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.mealdb.adapters.MealRecyclerAdapter;
+import com.example.mealdb.adapters.OnMealListener;
 import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
 import com.example.mealdb.requests.ServiceGenerator;
@@ -23,11 +27,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MealListActivity extends BaseActivity {
+public class MealListActivity extends BaseActivity implements OnMealListener {
 
     private static final String TAG = "MealListActivity";
 
     private MealListViewModel mMealListViewModel;
+    private RecyclerView mRecyclerView;
+    private MealRecyclerAdapter mAdapter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +41,15 @@ public class MealListActivity extends BaseActivity {
         setContentView(R.layout.activity_meal_list);
         Log.d(TAG, "onCreate: called");
 
+        mRecyclerView = findViewById(R.id.meal_list);
+
         // init view model
         mMealListViewModel = new ViewModelProvider(this).get(MealListViewModel.class);
 
+        initRecyclerView();
         subscribeObservers();
+        searchMealsApi("chicken");
 
-        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //testRetrofitRequest();
-                searchMealsApi("chicken");
-            }
-        });
-        
     }
 
     private void subscribeObservers() {
@@ -57,10 +59,17 @@ public class MealListActivity extends BaseActivity {
                 for(Meal meal : meals) {
                     if(meal != null){
                         Log.d(TAG, "onChanged: " + meal.getStrMeal());
+                        mAdapter.setmMeals(meals);
                     }
                 }
             }
         });
+    }
+
+    private void initRecyclerView() {
+        mAdapter = new MealRecyclerAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void searchMealsApi(String query) {
@@ -110,5 +119,15 @@ public class MealListActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onMealClick(int position) {
+
+    }
+
+    @Override
+    public void onCategoryClick(int position) {
+
     }
 }
