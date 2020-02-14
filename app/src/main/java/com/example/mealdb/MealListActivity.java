@@ -59,7 +59,9 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         initRecyclerView();
         subscribeObservers();
         initSearchView();
-
+        if(!mMealListViewModel.isViewingMeals()) {
+            displaySearchCategories();
+        }
     }
 
     private void subscribeObservers() {
@@ -69,7 +71,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
                 for(Meal meal : meals) {
                     if(meal != null){
                         Log.d(TAG, "onChanged: " + meal.getStrMeal());
-                        mAdapter.setmMeals(meals);
+                        mAdapter.setMeals(meals);
                     }
                 }
             }
@@ -86,7 +88,10 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                mAdapter.displayLoading();
                 searchMealsApi(query);
+
                 return false;
             }
 
@@ -107,9 +112,20 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     }
 
     @Override
-    public void onCategoryClick(int position) {
-
+    public void onCategoryClick(String category) {
+        mAdapter.displayLoading();
+        mMealListViewModel.searchMealsApi(category);
     }
+
+    private void displaySearchCategories() {
+        mMealListViewModel.setIsViewingMeals(false);
+        mAdapter.displaySearchCategories();
+    }
+
+
+
+
+
 
     private void testRetrofitRequest() {
         MealApi mealApi = ServiceGenerator.getMealApi();

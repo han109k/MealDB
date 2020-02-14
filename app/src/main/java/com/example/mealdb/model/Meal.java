@@ -29,6 +29,9 @@ public class Meal implements Parcelable {
             srtMeasure19, srtMeasure20;
     private ArrayList<Object> measureList;
 
+    public Meal() {
+    }
+
     public Meal(String idMeal, String strMeal, String strCategory, String strArea, String strInstructions, String strMealThumb,
                 String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4,
                 String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9,

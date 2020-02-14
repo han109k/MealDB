@@ -8,7 +8,7 @@ public class Constants {
     //public static final String API_KEY = "1";
 
     public static final String[] DEFAULT_SEARCH_CATEGORIES =
-            {"Beef", "Chicken", "Desert", "Lamb", "Miscellaneous", "Pasta", "Pork", "Seafood",
+            {"Beef", "Chicken", "Dessert", "Lamb", "Miscellaneous", "Pasta", "Pork", "Seafood",
                 "Side", "Starter", "Vegan", "Vegetarian", "Breakfast", "Goat"};
 
 
@@ -16,7 +16,7 @@ public class Constants {
             {
                 "beef",
                 "chicken",
-                "desert",
+                "dessert",
                 "lamb",
                 "miscellaneous",
                 "pasta",

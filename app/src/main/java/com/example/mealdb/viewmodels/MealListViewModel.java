@@ -12,9 +12,11 @@ import java.util.List;
 public class MealListViewModel extends ViewModel {
 
     private MealRepository mMealRepository;
+    private boolean mIsViewingMeals;
 
     public MealListViewModel() {
         mMealRepository = MealRepository.getInstance();
+        mIsViewingMeals = false;
     }
 
     public LiveData<List<Meal>> getMeals() {
@@ -22,6 +24,15 @@ public class MealListViewModel extends ViewModel {
     }
 
     public void searchMealsApi(String query) {
+        mIsViewingMeals = true;
         mMealRepository.searchMealsApi(query);
+    }
+
+    public boolean isViewingMeals() {
+        return mIsViewingMeals;
+    }
+
+    public void setIsViewingMeals(boolean isViewingMeals){
+        mIsViewingMeals = isViewingMeals;
     }
 }
