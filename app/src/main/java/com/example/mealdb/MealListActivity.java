@@ -1,6 +1,8 @@
 package com.example.mealdb;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
 
 import com.example.mealdb.adapters.MealRecyclerAdapter;
 import com.example.mealdb.adapters.OnMealListener;
@@ -33,9 +35,15 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     private static final String TAG = "MealListActivity";
 
     private MealListViewModel mMealListViewModel;
+    private SearchView mSearchView;
     private RecyclerView mRecyclerView;
     private MealRecyclerAdapter mAdapter;
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +51,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         Log.d(TAG, "onCreate: called");
 
         mRecyclerView = findViewById(R.id.meal_list);
+        mSearchView = findViewById(R.id.search_view);
 
         // init view model
         mMealListViewModel = new ViewModelProvider(this).get(MealListViewModel.class);
@@ -74,11 +83,10 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     }
 
     private void initSearchView() {
-        final SearchView searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mMealListViewModel.searchMealsApi(query);
+                searchMealsApi(query);
                 return false;
             }
 
@@ -91,6 +99,16 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
 
     public void searchMealsApi(String query) {
         mMealListViewModel.searchMealsApi(query);
+    }
+
+    @Override
+    public void onMealClick(int position) {
+
+    }
+
+    @Override
+    public void onCategoryClick(int position) {
+
     }
 
     private void testRetrofitRequest() {
@@ -136,15 +154,5 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
 
             }
         });
-    }
-
-    @Override
-    public void onMealClick(int position) {
-
-    }
-
-    @Override
-    public void onCategoryClick(int position) {
-
     }
 }

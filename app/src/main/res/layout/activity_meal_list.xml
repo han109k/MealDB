@@ -12,16 +12,18 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <androidx.appcompat.widget.SearchView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/search_view"
-                app:queryHint="chicken ...">
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:searchIcon="@drawable/ic_search_icon"
+                app:closeIcon="@drawable/ic_close_icon"
+                app:queryHint="steak ...">
 
             </androidx.appcompat.widget.SearchView>
 
@@ -36,5 +38,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
