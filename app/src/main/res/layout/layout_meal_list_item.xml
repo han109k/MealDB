@@ -28,13 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/meal_title_text_size"
-                android:textColor="#000"
+                android:textColor="@color/my_text_color"
                 android:id="@+id/meal_title"/>
 
             <LinearLayout
@@ -45,7 +46,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#4d4d4b"
+                    android:textColor="@color/my_hint_color"
                     android:textSize="@dimen/meal_category_text_size"
                     android:id="@+id/meal_category"
                     android:gravity="start"/>

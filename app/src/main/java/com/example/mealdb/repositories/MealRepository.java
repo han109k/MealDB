@@ -13,7 +13,6 @@ public class MealRepository {
     private static MealRepository instance;
     private MealApiClient mMealApiClient;
 
-
     public static MealRepository getInstance() {
         if(instance == null) {
             instance = new MealRepository();
@@ -31,5 +30,9 @@ public class MealRepository {
 
     public void searchMealsApi(String query) {
         mMealApiClient.searchMealsApi(query);
+    }
+
+    public void cancelRequest() {
+        mMealApiClient.cancelRequest();
     }
 }

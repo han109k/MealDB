@@ -13,10 +13,11 @@ public class MealListViewModel extends ViewModel {
 
     private MealRepository mMealRepository;
     private boolean mIsViewingMeals;
+    private boolean mIsPerformingQuery;
 
     public MealListViewModel() {
         mMealRepository = MealRepository.getInstance();
-        mIsViewingMeals = false;
+        mIsPerformingQuery = false;
     }
 
     public LiveData<List<Meal>> getMeals() {
@@ -25,6 +26,7 @@ public class MealListViewModel extends ViewModel {
 
     public void searchMealsApi(String query) {
         mIsViewingMeals = true;
+        mIsPerformingQuery = true;
         mMealRepository.searchMealsApi(query);
     }
 
@@ -34,5 +36,25 @@ public class MealListViewModel extends ViewModel {
 
     public void setIsViewingMeals(boolean isViewingMeals){
         mIsViewingMeals = isViewingMeals;
+    }
+
+    public boolean isPerformingQuery() {
+        return mIsPerformingQuery;
+    }
+
+    public void setIsPerformingQuery(boolean isPerformingQuery) {
+        mIsPerformingQuery = isPerformingQuery;
+    }
+
+    public boolean onBackPressed() {
+        if(mIsPerformingQuery) {
+            // cancel
+            mMealRepository.cancelRequest();
+        }
+        if(mIsViewingMeals) {
+            mIsViewingMeals = false;
+            return false;
+        }
+        return true;
     }
 }

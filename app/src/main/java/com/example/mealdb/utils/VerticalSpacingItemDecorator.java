@@ -1,5 +1,6 @@
 package com.example.mealdb.utils;
 
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
 
@@ -21,4 +22,5 @@ public class VerticalSpacingItemDecorator extends RecyclerView.ItemDecoration {
 
         outRect.top = verticalSpaceHeight;
     }
+
 }

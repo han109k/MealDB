@@ -8,9 +8,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.mealdb.adapters.MealRecyclerAdapter;
 import com.example.mealdb.adapters.OnMealListener;
@@ -18,6 +21,7 @@ import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
 import com.example.mealdb.requests.ServiceGenerator;
 import com.example.mealdb.requests.responses.MealSearchResponse;
+import com.example.mealdb.utils.Constants;
 import com.example.mealdb.utils.VerticalSpacingItemDecorator;
 import com.example.mealdb.viewmodels.MealListViewModel;
 
@@ -42,7 +46,16 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.category){
+            displaySearchCategories();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -63,18 +76,17 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         if(!mMealListViewModel.isViewingMeals()) {
             displaySearchCategories();
         }
+        setSupportActionBar(findViewById(R.id.toolbar));
     }
 
     private void subscribeObservers() {
         mMealListViewModel.getMeals().observe(this, new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meals) {
-                for(Meal meal : meals) {
-                    if(meal != null){
-                        Log.d(TAG, "onChanged: " + meal.getStrMeal());
-                        mAdapter.setMeals(meals);
-                    }
+                if(meals != null) {
+                    mMealListViewModel.setIsPerformingQuery(false);
                 }
+                mAdapter.setMeals(meals);
             }
         });
     }
@@ -82,7 +94,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     private void initRecyclerView() {
         mAdapter = new MealRecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(20);
         mRecyclerView.addItemDecoration(itemDecorator);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -93,7 +105,8 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
             public boolean onQueryTextSubmit(String query) {
 
                 mAdapter.displayLoading();
-                searchMealsApi(query);
+                mMealListViewModel.searchMealsApi(query);
+                mSearchView.clearFocus();
 
                 return false;
             }
@@ -105,10 +118,6 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         });
     }
 
-    public void searchMealsApi(String query) {
-        mMealListViewModel.searchMealsApi(query);
-    }
-
     @Override
     public void onMealClick(int position) {
 
@@ -118,6 +127,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     public void onCategoryClick(String category) {
         mAdapter.displayLoading();
         mMealListViewModel.searchMealsApi(category);
+        mSearchView.clearFocus();
     }
 
     private void displaySearchCategories() {
@@ -125,8 +135,16 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         mAdapter.displaySearchCategories();
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        if(mMealListViewModel.onBackPressed()) {
+            Log.d(TAG, "onBackPressed: pressed");
+            super.onBackPressed();
+        } else {
+            Log.d(TAG, "onBackPressed: pressed");
+            displaySearchCategories();
+        }
+    }
 
 
 
