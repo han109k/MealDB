@@ -18,6 +18,7 @@ import com.example.mealdb.model.Meal;
 import com.example.mealdb.requests.MealApi;
 import com.example.mealdb.requests.ServiceGenerator;
 import com.example.mealdb.requests.responses.MealSearchResponse;
+import com.example.mealdb.utils.VerticalSpacingItemDecorator;
 import com.example.mealdb.viewmodels.MealListViewModel;
 
 import java.io.IOException;
@@ -81,6 +82,8 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
     private void initRecyclerView() {
         mAdapter = new MealRecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
+        mRecyclerView.addItemDecoration(itemDecorator);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
