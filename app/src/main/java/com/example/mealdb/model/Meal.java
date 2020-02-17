@@ -3,10 +3,6 @@ package com.example.mealdb.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-
 public class Meal implements Parcelable {
 
     private String idMeal;
@@ -21,13 +17,11 @@ public class Meal implements Parcelable {
             strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
             strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
             strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20;
-    private ArrayList<Object> ingredientList;
     // Measures
-    protected String srtMeasure1, srtMeasure2, srtMeasure3, srtMeasure4, srtMeasure5, srtMeasure6,
-            srtMeasure7, srtMeasure8, srtMeasure9, srtMeasure10, srtMeasure11, srtMeasure12,
-            srtMeasure13, srtMeasure14, srtMeasure15, srtMeasure16, srtMeasure17, srtMeasure18,
-            srtMeasure19, srtMeasure20;
-    private ArrayList<Object> measureList;
+    protected String strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6,
+            strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12,
+            strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18,
+            strMeasure19, strMeasure20;
 
     public Meal() {
     }
@@ -37,11 +31,11 @@ public class Meal implements Parcelable {
                 String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9,
                 String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13,
                 String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17,
-                String strIngredient18, String strIngredient19, String strIngredient20, String srtMeasure1, String srtMeasure2,
-                String srtMeasure3, String srtMeasure4, String srtMeasure5, String srtMeasure6, String srtMeasure7,
-                String srtMeasure8, String srtMeasure9, String srtMeasure10, String srtMeasure11, String srtMeasure12,
-                String srtMeasure13, String srtMeasure14, String srtMeasure15, String srtMeasure16, String srtMeasure17,
-                String srtMeasure18, String srtMeasure19, String srtMeasure20) {
+                String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2,
+                String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7,
+                String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12,
+                String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17,
+                String strMeasure18, String strMeasure19, String strMeasure20) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strCategory = strCategory;
@@ -69,26 +63,26 @@ public class Meal implements Parcelable {
         this.strIngredient18 = strIngredient18;
         this.strIngredient19 = strIngredient19;
         this.strIngredient20 = strIngredient20;
-        this.srtMeasure1 = srtMeasure1;
-        this.srtMeasure2 = srtMeasure2;
-        this.srtMeasure3 = srtMeasure3;
-        this.srtMeasure4 = srtMeasure4;
-        this.srtMeasure5 = srtMeasure5;
-        this.srtMeasure6 = srtMeasure6;
-        this.srtMeasure7 = srtMeasure7;
-        this.srtMeasure8 = srtMeasure8;
-        this.srtMeasure9 = srtMeasure9;
-        this.srtMeasure10 = srtMeasure10;
-        this.srtMeasure11 = srtMeasure11;
-        this.srtMeasure12 = srtMeasure12;
-        this.srtMeasure13 = srtMeasure13;
-        this.srtMeasure14 = srtMeasure14;
-        this.srtMeasure15 = srtMeasure15;
-        this.srtMeasure16 = srtMeasure16;
-        this.srtMeasure17 = srtMeasure17;
-        this.srtMeasure18 = srtMeasure18;
-        this.srtMeasure19 = srtMeasure19;
-        this.srtMeasure20 = srtMeasure20;
+        this.strMeasure1 = strMeasure1;
+        this.strMeasure2 = strMeasure2;
+        this.strMeasure3 = strMeasure3;
+        this.strMeasure4 = strMeasure4;
+        this.strMeasure5 = strMeasure5;
+        this.strMeasure6 = strMeasure6;
+        this.strMeasure7 = strMeasure7;
+        this.strMeasure8 = strMeasure8;
+        this.strMeasure9 = strMeasure9;
+        this.strMeasure10 = strMeasure10;
+        this.strMeasure11 = strMeasure11;
+        this.strMeasure12 = strMeasure12;
+        this.strMeasure13 = strMeasure13;
+        this.strMeasure14 = strMeasure14;
+        this.strMeasure15 = strMeasure15;
+        this.strMeasure16 = strMeasure16;
+        this.strMeasure17 = strMeasure17;
+        this.strMeasure18 = strMeasure18;
+        this.strMeasure19 = strMeasure19;
+        this.strMeasure20 = strMeasure20;
     }
 
     protected Meal(Parcel in) {
@@ -119,26 +113,26 @@ public class Meal implements Parcelable {
         strIngredient18 = in.readString();
         strIngredient19 = in.readString();
         strIngredient20 = in.readString();
-        srtMeasure1 = in.readString();
-        srtMeasure2 = in.readString();
-        srtMeasure3 = in.readString();
-        srtMeasure4 = in.readString();
-        srtMeasure5 = in.readString();
-        srtMeasure6 = in.readString();
-        srtMeasure7 = in.readString();
-        srtMeasure8 = in.readString();
-        srtMeasure9 = in.readString();
-        srtMeasure10 = in.readString();
-        srtMeasure11 = in.readString();
-        srtMeasure12 = in.readString();
-        srtMeasure13 = in.readString();
-        srtMeasure14 = in.readString();
-        srtMeasure15 = in.readString();
-        srtMeasure16 = in.readString();
-        srtMeasure17 = in.readString();
-        srtMeasure18 = in.readString();
-        srtMeasure19 = in.readString();
-        srtMeasure20 = in.readString();
+        strMeasure1 = in.readString();
+        strMeasure2 = in.readString();
+        strMeasure3 = in.readString();
+        strMeasure4 = in.readString();
+        strMeasure5 = in.readString();
+        strMeasure6 = in.readString();
+        strMeasure7 = in.readString();
+        strMeasure8 = in.readString();
+        strMeasure9 = in.readString();
+        strMeasure10 = in.readString();
+        strMeasure11 = in.readString();
+        strMeasure12 = in.readString();
+        strMeasure13 = in.readString();
+        strMeasure14 = in.readString();
+        strMeasure15 = in.readString();
+        strMeasure16 = in.readString();
+        strMeasure17 = in.readString();
+        strMeasure18 = in.readString();
+        strMeasure19 = in.readString();
+        strMeasure20 = in.readString();
     }
 
     public static final Creator<Meal> CREATOR = new Creator<Meal>() {
@@ -209,40 +203,48 @@ public class Meal implements Parcelable {
         this.strYoutube = strYoutube;
     }
 
-    public void setAll() {
-        ingredientList = new ArrayList<>();
-        measureList = new ArrayList<>();
-        Class<?> mealClass = getClass();
-        int i = 0;
-
-        for(Field field : mealClass.getDeclaredFields()){
-            field.setAccessible(true);
-            int modifiers = field.getModifiers();
-            if(Modifier.isProtected(modifiers) && (i < 20)) {
-                try {
-                    i++;
-                    ingredientList.add(field.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } else if(Modifier.isProtected(modifiers) && (i > 19)) {
-                try {
-                    i++;
-                    measureList.add(field.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public String getStrIngredient10() {
+        return strIngredient10;
     }
 
-    public ArrayList<Object> getIngredientList() {
-        return ingredientList;
+    public String getStrMeasure10() {
+        return strMeasure10;
     }
 
-    public ArrayList<Object> getMeasureList() {
-        return measureList;
-    }
+    //    public void setAll() {
+//        ingredientList = new ArrayList<>();
+//        measureList = new ArrayList<>();
+//        Class<?> mealClass = getClass();
+//        int i = 0;
+//
+//        for(Field field : mealClass.getDeclaredFields()){
+//            field.setAccessible(true);
+//            int modifiers = field.getModifiers();
+//            if(Modifier.isProtected(modifiers) && (i < 20)) {
+//                try {
+//                    i++;
+//                    ingredientList.add(field.get(this));
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            } else if(Modifier.isProtected(modifiers) && (i > 19)) {
+//                try {
+//                    i++;
+//                    measureList.add(field.get(this));
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//
+//    public ArrayList<Object> getIngredientList() {
+//        return ingredientList;
+//    }
+//
+//    public ArrayList<Object> getMeasureList() {
+//        return measureList;
+//    }
 
     @Override
     public String toString() {
@@ -287,25 +289,25 @@ public class Meal implements Parcelable {
         dest.writeString(strIngredient18);
         dest.writeString(strIngredient19);
         dest.writeString(strIngredient20);
-        dest.writeString(srtMeasure1);
-        dest.writeString(srtMeasure2);
-        dest.writeString(srtMeasure3);
-        dest.writeString(srtMeasure4);
-        dest.writeString(srtMeasure5);
-        dest.writeString(srtMeasure6);
-        dest.writeString(srtMeasure7);
-        dest.writeString(srtMeasure8);
-        dest.writeString(srtMeasure9);
-        dest.writeString(srtMeasure10);
-        dest.writeString(srtMeasure11);
-        dest.writeString(srtMeasure12);
-        dest.writeString(srtMeasure13);
-        dest.writeString(srtMeasure14);
-        dest.writeString(srtMeasure15);
-        dest.writeString(srtMeasure16);
-        dest.writeString(srtMeasure17);
-        dest.writeString(srtMeasure18);
-        dest.writeString(srtMeasure19);
-        dest.writeString(srtMeasure20);
+        dest.writeString(strMeasure1);
+        dest.writeString(strMeasure2);
+        dest.writeString(strMeasure3);
+        dest.writeString(strMeasure4);
+        dest.writeString(strMeasure5);
+        dest.writeString(strMeasure6);
+        dest.writeString(strMeasure7);
+        dest.writeString(strMeasure8);
+        dest.writeString(strMeasure9);
+        dest.writeString(strMeasure10);
+        dest.writeString(strMeasure11);
+        dest.writeString(strMeasure12);
+        dest.writeString(strMeasure13);
+        dest.writeString(strMeasure14);
+        dest.writeString(strMeasure15);
+        dest.writeString(strMeasure16);
+        dest.writeString(strMeasure17);
+        dest.writeString(strMeasure18);
+        dest.writeString(strMeasure19);
+        dest.writeString(strMeasure20);
     }
 }

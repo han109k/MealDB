@@ -28,8 +28,20 @@ public class MealRepository {
         return mMealApiClient.getMeals();
     }
 
+    public LiveData<List<Meal>> getMeal() {
+        return mMealApiClient.getMeal();
+    }
+
+    public LiveData<Boolean>isMealRequestTimedOut() {
+        return mMealApiClient.isMealRequestTimesOut();
+    }
+
     public void searchMealsApi(String query) {
         mMealApiClient.searchMealsApi(query);
+    }
+
+    public void searchMealById(String query) {
+        mMealApiClient.searchMealById(query);
     }
 
     public void cancelRequest() {

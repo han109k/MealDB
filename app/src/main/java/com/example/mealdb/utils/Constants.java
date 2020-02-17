@@ -2,7 +2,7 @@ package com.example.mealdb.utils;
 
 public class Constants {
 
-    public static final int NETWORK_TIMEOUT = 7000;
+    public static final int NETWORK_TIMEOUT = 5000;
     public static final int SPLASH_TIMEOUT = 2000;
 
     public static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";

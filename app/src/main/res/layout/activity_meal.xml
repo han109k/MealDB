@@ -3,87 +3,103 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    android:background="@color/colorPrimary"
+    android:visibility="gone">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/meal_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/meal_image_height"
-            android:id="@+id/recipe_image"
             android:scaleType="centerCrop" />
 
         <TextView
+            android:id="@+id/meal_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/meal_title_text_size"
-            android:textColor="#000"
-            android:id="@+id/recipe_title"
+            android:textColor="@color/my_text_color"
+            android:textStyle="bold"
             android:padding="7dp"
-            android:layout_below="@+id/recipe_image"
-            android:text="Some Recipe title"/>
+            android:layout_below="@+id/meal_image"
+            android:text="Meal title"/>
 
 
         <LinearLayout
+            android:id="@+id/container1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/recipe_title"
-            android:id="@+id/container1"
+            android:layout_below="@+id/meal_title"
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/ingredients_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/meal_category_text_size"
                 android:textStyle="bold"
-                android:layout_below="@+id/recipe_title"
-                android:id="@+id/ingredients_title"
+                android:textColor="@color/my_text_color"
+                android:layout_below="@+id/meal_title"
                 android:text="Ingredients"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ingredients_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical"
-            android:layout_below="@+id/container1"
-            android:id="@+id/ingredients_container">
+            android:layout_below="@+id/container1">
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/container2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@+id/ingredients_container"
-            android:id="@+id/container2"
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/instructions_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/meal_category_text_size"
                 android:textStyle="bold"
+                android:textColor="@color/my_text_color"
                 android:layout_below="@+id/recipe_title"
-                android:id="@+id/instructions_title"
                 android:text="Instructions"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/instructions_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical"
-            android:layout_below="@+id/container2"
-            android:id="@+id/instructions_container">
+            android:layout_below="@+id/container2">
+
         </LinearLayout>
 
+        <Button
+            android:id="@+id/youtube"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/instructions_container"
+            android:text="Watch on YouTube"
+            android:textColor="@color/my_text_color"
+            android:background="@color/red"/>
 
     </RelativeLayout>
 

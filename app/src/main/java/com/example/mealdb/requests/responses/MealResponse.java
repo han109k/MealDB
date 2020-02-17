@@ -4,13 +4,15 @@ import com.example.mealdb.model.Meal;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MealResponse {
 
     @SerializedName("meals")
     @Expose()
-    private Meal meal;
+    private List<Meal> meal;
 
-    public Meal getMeal(){
+    public List<Meal> getMeal(){
         return meal;
     }
 

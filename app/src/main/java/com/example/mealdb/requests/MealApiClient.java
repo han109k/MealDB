@@ -27,7 +27,7 @@ public class MealApiClient {
 
     private static MealApiClient instance;
     private MutableLiveData<List<Meal>> mMeals;
-    private MutableLiveData<Meal> mMeal;
+    private MutableLiveData<List<Meal>> mMeal;
     private RetrieveMealsRunnable mRetrieveMealsRunnable;
     private RetrieveMealRunnable mRetrieveMealRunnable;
     private MutableLiveData<Boolean> mMealRequestTimeout = new MutableLiveData<>();
@@ -48,11 +48,11 @@ public class MealApiClient {
         return mMeals;
     }
 
-    public LiveData<Meal> getMeal() {
+    public LiveData<List<Meal>> getMeal() {
         return mMeal;
     }
 
-    public LiveData<Boolean> getMealRequestTimedOut() {
+    public LiveData<Boolean> isMealRequestTimesOut() {
         return mMealRequestTimeout;
     }
 
@@ -148,7 +148,25 @@ public class MealApiClient {
 
         @Override
         public void run() {
+            try {
+                Response response = getMeal(mealId).execute();
 
+                if(cancelRequest)
+                    return;
+
+                if(response.code() == 200) {
+                    List<Meal> meal = new ArrayList<>(((MealResponse)response.body()).getMeal());
+                    mMeal.postValue(meal);
+                } else {
+                    String error = response.errorBody().string();
+                    Log.e(TAG, "run: " + error);
+                    mMeal.postValue(null);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                mMeal.postValue(null);
+            }
         }
 
         private Call<MealResponse> getMeal(String mealId) {

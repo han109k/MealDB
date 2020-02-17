@@ -150,4 +150,13 @@ public class MealRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mMeals = meals;
         notifyDataSetChanged();
     }
+
+    public Meal getSelectedMeal(int position) {
+        if(mMeals != null) {
+            if(mMeals.size() > 0 ){
+                return mMeals.get(position);
+            }
+        }
+        return null;
+    }
 }
