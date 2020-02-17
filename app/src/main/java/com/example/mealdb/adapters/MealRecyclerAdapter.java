@@ -23,6 +23,7 @@ public class MealRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int MEAL_TYPE = 1;
     private static final int LOADING_TYPE = 2;
     private static final int CATEGORY_TYPE = 3;
+    private static final int EXHAUSTED_TYPE = 4;
 
     private List<Meal> mMeals;
     private OnMealListener mOnMealListener;
@@ -46,6 +47,9 @@ public class MealRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case CATEGORY_TYPE:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_category_list_item, parent, false);
                 return new CategoryViewHolder(view, mOnMealListener);
+            case EXHAUSTED_TYPE:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_search_exhausted, parent, false);
+                return new SearchExhaustedVieHolder(view);
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_meal_list_item, parent, false);
                 return new MealViewHolder(view, mOnMealListener);
@@ -97,8 +101,29 @@ public class MealRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         if(mMeals.get(position).getStrMeal().equals("LOADING")){
             return LOADING_TYPE;
+        } else if (mMeals.get(position).getStrMeal().equals("EXHAUSTED")) {
+            return EXHAUSTED_TYPE;
         } else {
             return MEAL_TYPE;
+        }
+    }
+
+    public void setQueryExhausted() {
+        hideLoading();
+        Meal exhaustedMal = new Meal();
+        exhaustedMal.setStrMeal("EXHAUSTED");
+        mMeals.add(exhaustedMal);
+        notifyDataSetChanged();
+    }
+
+    private void hideLoading() {
+        if(isLoading()) {
+            for (Meal meal : mMeals) {
+                if(meal.getStrMeal().equals("LOADING")){
+                    mMeals.remove(meal);
+                }
+            }
+            notifyDataSetChanged();
         }
     }
 

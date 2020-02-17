@@ -64,6 +64,7 @@ public class MealApiClient {
         mRetrieveMealsRunnable = new RetrieveMealsRunnable(query);
         final Future handler = AppExecutors.getInstance().networkIO().submit(mRetrieveMealsRunnable);
 
+        mMealRequestTimeout.postValue(false);
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
             @Override
             public void run() {
@@ -127,6 +128,7 @@ public class MealApiClient {
         mRetrieveMealRunnable = new RetrieveMealRunnable(mealId);
         final Future handler = AppExecutors.getInstance().networkIO().submit(mRetrieveMealRunnable);
 
+        mMealRequestTimeout.setValue(false);
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
             @Override
             public void run() {

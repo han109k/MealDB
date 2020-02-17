@@ -1,5 +1,6 @@
 package com.example.mealdb;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealdb.model.Meal;
 import com.example.mealdb.viewmodels.MealViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -36,6 +39,7 @@ public class MealActivity extends BaseActivity {
     private ScrollView mScrollView;
 
     private MealViewModel mMealViewModel;
+    private String mYoutubeUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class MealActivity extends BaseActivity {
             Log.d(TAG, "getIncomingIntent: " + meal.getStrMeal());
             mMealViewModel.searchMealById(meal.getIdMeal());
             Log.d(TAG, "getIncomingIntent: " + meal.getIdMeal());
+            mYoutubeUrl = meal.getStrYoutube();
         }
     }
 
@@ -85,6 +90,7 @@ public class MealActivity extends BaseActivity {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean && !mMealViewModel.isMealRetrieved()) {
                     Log.d(TAG, "onChanged: timed out...");
+                    displayErrorScreen("Error retrieveing data. Check network connection");
                 }
             }
         });
@@ -105,7 +111,7 @@ public class MealActivity extends BaseActivity {
             mMealInstructions.removeAllViews();
             TextView instructions = new TextView(this);
             instructions.setText(meal.getStrInstructions());
-            instructions.setTextSize(15f);
+            instructions.setTextSize(15);
             instructions.setTextColor(Color.parseColor("#fafafa"));
             instructions.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
@@ -147,7 +153,7 @@ public class MealActivity extends BaseActivity {
             for(int j = 0; j < ingredients.size(); j++) {
                 TextView ingredient = new TextView(this);
                 ingredient.setText(String.format(measures.get(j) + " " + ingredients.get(j)));
-                ingredient.setTextSize(15f);
+                ingredient.setTextSize(15);
                 ingredient.setTextColor(Color.parseColor("#fafafa"));
                 ingredient.setLayoutParams(new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
@@ -160,7 +166,53 @@ public class MealActivity extends BaseActivity {
         showProgressBar(false);
     }
 
+    private void displayErrorScreen(String errorMessage) {
+        mMealTitle.setText("Error retrieveing meal");
+        TextView textView = new TextView(this);
+        if(!errorMessage.equals("")) {
+            textView.setText(errorMessage);
+        } else {
+            textView.setText("Error");
+        }
+
+        textView.setTextSize(15);
+        textView.setTextColor(Color.parseColor("#fafafa"));
+        textView.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        mMealIngredients.addView(textView);
+
+        TextView placeHolder = new TextView(this);
+        placeHolder.setText(". . .");
+        placeHolder.setTextSize(15);
+        placeHolder.setTextColor(Color.parseColor("#fafafa"));
+        mMealInstructions.addView(placeHolder);
+        mYoutube.setVisibility(View.GONE);
+
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background);
+
+        Glide.with(this)
+                .setDefaultRequestOptions(requestOptions)
+                .load(R.drawable.ic_launcher_background)
+                .into(mMealImage);
+
+        showParent();
+        showProgressBar(false);
+    }
+
     private void showParent(){
         mScrollView.setVisibility(View.VISIBLE);
+    }
+
+    public void ActivityYoutube(View view) {
+
+        if(mYoutube != null || !mYoutube.equals("") ){
+            Intent intent = new Intent(this, YoutubeActivity.class);
+            intent.putExtra("url", mYoutubeUrl);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Couldn't load URL", Toast.LENGTH_LONG).show();
+        }
     }
 }

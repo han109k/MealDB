@@ -98,6 +98,26 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
                 mAdapter.setMeals(meals);
             }
         });
+
+        mMealListViewModel.isQueryExhausted().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean) {
+                    Log.d(TAG, "onChanged: query is exhausted");
+                    mAdapter.setQueryExhausted();
+                }
+            }
+        });
+
+        mMealListViewModel.isRequestTimedOut().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean) {
+                    Log.d(TAG, "onChanged: request is timed out");
+                    mAdapter.setQueryExhausted();
+                }
+            }
+        });
     }
 
     private void initRecyclerView() {

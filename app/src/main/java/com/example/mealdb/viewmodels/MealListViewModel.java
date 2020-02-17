@@ -24,6 +24,14 @@ public class MealListViewModel extends ViewModel {
         return mMealRepository.getMeals();
     }
 
+    public LiveData<Boolean> isQueryExhausted() {
+        return mMealRepository.isQueryExhausted();
+    }
+
+    public LiveData<Boolean> isRequestTimedOut(){
+        return mMealRepository.isMealRequestTimedOut();
+    }
+
     public void searchMealsApi(String query) {
         mIsViewingMeals = true;
         mIsPerformingQuery = true;
