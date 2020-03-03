@@ -41,6 +41,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
 
     private static final String TAG = "MealListActivity";
 
+    private boolean isExhausted = false;
     private MealListViewModel mMealListViewModel;
     private SearchView mSearchView;
     private RecyclerView mRecyclerView;
@@ -105,6 +106,7 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
                 if(aBoolean) {
                     Log.d(TAG, "onChanged: query is exhausted");
                     mAdapter.setQueryExhausted();
+                    setTrue();
                 }
             }
         });
@@ -113,8 +115,12 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean) {
-                    Log.d(TAG, "onChanged: request is timed out");
-                    mAdapter.setQueryExhausted();
+                    if(isExhausted) {
+                        setFalse();
+                    } else {
+                        Log.d(TAG, "onChanged: request is timed out");
+                        mAdapter.setQueryExhausted();
+                    }
                 }
             }
         });
@@ -177,7 +183,13 @@ public class MealListActivity extends BaseActivity implements OnMealListener {
         }
     }
 
+    private void setTrue() {
+        isExhausted = true;
+    }
 
+    private void setFalse() {
+        isExhausted = false;
+    }
 
 //    private void testRetrofitRequest() {
 //        MealApi mealApi = ServiceGenerator.getMealApi();
